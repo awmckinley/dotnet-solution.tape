@@ -1,3 +1,5 @@
+require "rubygems"
+require "bundler/setup"
 require "require_relative"
 require "albacore"
 require_relative "build/lib/paths"
@@ -12,6 +14,8 @@ task :default do
 end
 
 Albacore.configure do |config|
+  config.log_level = :verbose
   config.assemblyinfo.namespaces = ["System.Reflection"]
+  config.mspec.command = COMMANDS[:mspec]
   config.xunit.command = COMMANDS[:xunit]
 end

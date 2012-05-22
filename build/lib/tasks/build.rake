@@ -1,6 +1,8 @@
+require "rubygems"
+require "bundler/setup"
 require "require_relative"
 require "albacore"
-require "version_bumper"
+require "semver"
 require "rake/clean"
 require_relative "../paths"
 require_relative "../projects_info"
@@ -16,17 +18,22 @@ task :build_skip_test => ["main:build_skip_test"]
 
 namespace :main do
 
-  task :build => [:assembly_info, :msbuild, :test]
-  task :build_skip_test => [:assembly_info, :msbuild]
-  task :test => [:msbuild, :xunit]
+  task :build => [:assembly_info, :msbuild, :test, :output]
+  task :build_skip_test => [:assembly_info, :msbuild, :output]
+  task :test => [:msbuild, :xunit, :mspec]
 
   assemblyinfo :assembly_info do |asm|
-    asm.version = bumper_version.to_s
-    asm.file_version = bumper_version.to_s
+    v = SemVer.find
+    asm.version = v.format "%M.%m.%p"
+    asm.file_version = v.format "%M.%m.%p"
 
     asm.product_name = PROJECTS[:main][:product]
     asm.company_name = PROJECTS[:main][:company]
     asm.copyright = PROJECTS[:main][:copyright]
+
+    asm.custom_attributes({
+      :AssemblyInformationalVersion => v.format("%M.%m.%p%s")
+    })
 
     asm.output_file = PATHS[:main][:common_assembly_info]
   end
@@ -37,11 +44,22 @@ namespace :main do
     msb.solution = PATHS[:main][:solution]
   end
 
+  output :output do |out|
+    out.from PATHS[:main][:release_dir]
+    out.to PATHS[:output]
+    out.file PATHS[:main][:assembly], :as => File.join("lib", "net40", PATHS[:main][:assembly])
+  end
+
   xunit :xunit do |xunit|
     xunit.assemblies PATHS[:main][:tests]
   end
 
+  mspec :mspec do |mspec|
+    mspec.assemblies PATHS[:main][:specs]
+  end
+
 end
 
-CLOBBER.include("src/*/*/bin")
-CLOBBER.include("src/*/*/obj")
+CLOBBER.include("src/**/bin")
+CLOBBER.include("src/**/obj")
+CLOBBER.include(PATHS[:output])

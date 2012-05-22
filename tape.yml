@@ -1,4 +1,7 @@
 name: Project.Name
-author: Your Name
+authors: Your Name
 company: Company Name
+summary: Project Summary
+long_desc: Long description of the project.
+project_url: http://example.com
 copyright: Copyright 2012 Your Name/Company Name

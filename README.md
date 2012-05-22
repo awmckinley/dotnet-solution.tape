@@ -1,7 +1,7 @@
 {{name}}
 ========
 
-Describe your project.
+{{summary}}
 
 
 

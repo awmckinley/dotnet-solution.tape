@@ -2,5 +2,5 @@ source "http://rubygems.org"
 
 gem "rake"
 gem "require_relative"
-gem "albacore"
-gem "version_bumper"
+gem "albacore", :git => "git://github.com/derickbailey/Albacore.git", :branch => "dev"
+gem "semver"
