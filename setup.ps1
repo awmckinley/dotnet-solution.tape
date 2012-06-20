@@ -4,6 +4,9 @@ iex ((New-Object net.webClient).DownloadString('https://raw.github.com/awmckinle
 Write-Host "Downloading and installing the Chocolatey package manager."
 iex ((New-Object net.webClient).DownloadString('https://raw.github.com/awmckinley/chocolatey/master/chocolateyInstall/InstallChocolatey.ps1'))
 
+Write-Host "Ensuring that ILMerge is installed."
+cinstm ilmerge
+
 Write-Host "Ensuring that Ruby is installed."
 cinstm ruby
 

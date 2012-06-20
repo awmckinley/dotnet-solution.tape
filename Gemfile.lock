@@ -1,18 +1,24 @@
 GIT
   remote: git://github.com/derickbailey/Albacore.git
-  revision: cac57ed1fb234f4697ea4220b6cd04f7acb053ff
-  branch: dev
+  revision: 4ac5effe4d9167787681bf831988c6fbd4e193cc
+  ref: 4ac5effe4d9167787681bf831988c6fbd4e193cc
   specs:
     albacore (0.2.8)
       rubyzip (~> 0.9)
+
+GIT
+  remote: git://github.com/flazz/semver.git
+  revision: 6b516b15bf6c5f5abd4b82c0cc75d5f711309556
+  ref: 6b516b15bf6c5f5abd4b82c0cc75d5f711309556
+  specs:
+    semver2 (3.0.1)
 
 GEM
   remote: http://rubygems.org/
   specs:
     rake (0.9.2.2)
     require_relative (1.0.3)
-    rubyzip (0.9.8)
-    semver (1.0.1)
+    rubyzip (0.9.9)
 
 PLATFORMS
   x86-mingw32
@@ -21,4 +27,4 @@ DEPENDENCIES
   albacore!
   rake
   require_relative
-  semver
+  semver2!
